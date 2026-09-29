@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 140" width="560" height="140">
+  <title>YUPOMA SPORT</title>
+  <g transform="translate(6 10)"><rect width="120" height="120" rx="28" fill="#0E0E10"/><g transform="translate(14 0) skewX(-12)"><path d="M10 44h16l-3 7H7z M6 60h18l-3 7H3z" fill="#FF5A1F" opacity=".75"/><path d="M28 24h20l12 20 12-20h20L68 62v36H52V62z" fill="#FFFFFF"/><path d="M72 24h20L68 62H56z" fill="#FF5A1F"/></g></g>
+  <text x="146" y="86" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-style="italic" font-size="64" letter-spacing="1" fill="#0E0E10">YUPOMA</text>
+  <text x="150" y="120" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-style="italic" font-size="24" letter-spacing="9" fill="#FF5A1F">SPORT</text>
+</svg>
