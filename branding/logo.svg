@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" width="520" height="140">
+  <title>VELOX sport store</title>
+  <g transform="translate(10 10)">
+    <path d="M14 40h20l-4 8H10z" fill="#FF4D1A" opacity=".55"/>
+    <path d="M8 56h22l-4 8H4z" fill="#FF4D1A" opacity=".8"/>
+    <path d="M34 28h22l14 44 26-44h18L74 94H56z" fill="#0E0E10"/>
+    <path d="M74 94l40-66h-18L70 72z" fill="#FF4D1A"/>
+  </g>
+  <text x="140" y="92" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-style="italic" font-size="72" letter-spacing="2" fill="#0E0E10">VELOX</text>
+  <text x="144" y="122" font-family="'Helvetica Neue',Arial,sans-serif" font-weight="700" font-size="15" letter-spacing="7.4" fill="#FF4D1A">SPORT STORE</text>
+</svg>
