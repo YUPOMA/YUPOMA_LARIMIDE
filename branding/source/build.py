@@ -25,43 +25,46 @@ def sub(label,size=34,track=26,y=600):
     w=width(label,size,track); x=130+(865-130-w)/2
     return text_path(label,x,y,size,track)[0], x, x+w
 
-# бабочка взлетает: сдвиг вверх-вправо и лёгкий наклон
-FLY='transform="translate(58 -58) rotate(-14 131 397)"'
-TRAIL='<path d="M150 440 C 150 400, 160 372, 182 350" fill="none" stroke="{c}" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="0.1 12" opacity=".9"/>'
-def sport_logo(fn,title,wing,label="SPORT",ink=INK,sub_c=None,bg=None):
-    sub_c=sub_c or wing
+
+AX=136   # ось тела бабочки (точка, где сходятся крылья)
+FLAP="""<style>
+  .wings{transform-origin:136px 412px;animation:flap 4s ease-in-out infinite}
+  @keyframes flap{0%,40%,100%{transform:scaleX(1)}8%,24%{transform:scaleX(.45)}16%,32%{transform:scaleX(1)}}
+  @media (prefers-reduced-motion:reduce){.wings{animation:none}}
+</style>"""
+def logo(fn,title,wing=INK,ink=INK,label="SPORT",sub_c=None,animated=False):
+    sub_c=sub_c or ink
     sp,x0,x1=sub(label)
-    line=f'<path d="M130 588H{x0-24:.0f}M{x1+24:.0f} 588H865" stroke="{sub_c}" stroke-width="2" opacity=".55"/>'
-    rect=f'<rect x="60" y="250" width="870" height="400" rx="40" fill="{bg}"/>' if bg else ""
-    open(OUT+fn,"w").write(f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 250 870 400" width="870" height="400">
-  <title>{title}</title>{rect}
-  {TRAIL.format(c=wing)}
-  <path {FLY} d="{BF}" fill="{wing}" fill-rule="evenodd"/>
+    line=f'<path d="M130 588H{x0-24:.0f}M{x1+24:.0f} 588H865" stroke="{sub_c}" stroke-width="2" opacity=".45"/>'
+    open(OUT+fn,"w").write(f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 320 870 300" width="870" height="300">
+  <title>{title}</title>{FLAP if animated else ""}
+  <path class="wings" d="{BF}" fill="{wing}" fill-rule="evenodd"/>
   <path d="{WD}" fill="{ink}" fill-rule="evenodd"/>
   {line}
   <path d="{sp}" fill="{sub_c}"/>
 </svg>
-''')
-def icon(fn,title,wing,bg):
-    open(OUT+fn,"w").write(f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
-  <title>{title}</title>
+""")
+YL=[d for d,b in parts if b[0]<210 and b[1]>=419]   # только буква Y
+def icon(fn,title,wing=INK,bg="#F7F4F1",animated=False):
+    open(OUT+fn,"w").write(f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>{title}</title>{FLAP if animated else ""}
   <rect width="240" height="240" rx="56" fill="{bg}"/>
-  <g transform="translate(120 120) scale(1.55) rotate(-14) translate(-131 -397)">
-    <path d="M95 440 C 100 425, 108 418, 116 412" fill="none" stroke="{wing}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="0.1 8" opacity=".9"/>
-    <path d="{BF}" fill="{wing}" fill-rule="evenodd"/>
+  <g transform="translate(120 122) scale(1.15) translate(-146 -438)">
+    <path class="wings" d="{BF}" fill="{wing}" fill-rule="evenodd"/>
+    <path d="{" ".join(YL)}" fill="{INK}" fill-rule="evenodd"/>
   </g>
 </svg>
-''')
-ORANGE="#F26A2E"; ORANGE2="#E4572E"
-# градиентная бабочка для основного варианта
-open(OUT+"yupoma-original.svg","w").write(f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 320 870 230" width="870" height="230">
+""")
+open(OUT+"yupoma-original.svg","w").write(f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 320 870 230" width="870" height="230">
   <title>YUPOMA</title>
   <path d="{BF} {WD}" fill="{INK}" fill-rule="evenodd"/>
 </svg>
-''')
-sport_logo("yupoma-sport.svg","YUPOMA SPORT",ORANGE)
-sport_logo("yupoma-sport-mono.svg","YUPOMA SPORT (mono)",INK)
-sport_logo("yupoma-sport-light.svg","YUPOMA SPORT (on orange)","#FFFFFF",ink="#FFFFFF",bg=ORANGE)
-sport_logo("yupoma-bio.svg","YUPOMA BIO","#3E9B57",label="BIO")
-icon("yupoma-sport-icon.svg","YUPOMA SPORT icon",ORANGE,"#FFF4EC")
-icon("yupoma-sport-icon-orange.svg","YUPOMA SPORT icon","#FFFFFF",ORANGE)
+""")
+OR="#E8622C"
+logo("yupoma-sport.svg","YUPOMA SPORT")
+logo("yupoma-sport-animated.svg","YUPOMA SPORT",animated=True)
+logo("yupoma-sport-color.svg","YUPOMA SPORT",wing=OR,sub_c=OR)
+logo("yupoma-sport-color-animated.svg","YUPOMA SPORT",wing=OR,sub_c=OR,animated=True)
+icon("yupoma-sport-icon.svg","YUPOMA SPORT icon",animated=True)
+icon("yupoma-sport-icon-color.svg","YUPOMA SPORT icon",wing=OR,animated=True)
+logo("yupoma-bio.svg","YUPOMA BIO",wing="#3E9B57",label="BIO",sub_c="#3E9B57")
